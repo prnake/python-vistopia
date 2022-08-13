@@ -94,7 +94,7 @@ def save_show(ctx, **argv):
 def subscriptions(ctx):
     for i in range(1,300):
         try:
-            ctx.obj.visitor.save_show(i)
+            ctx.obj.visitor.save_show(i, verbose = True, skip_free=True)
         except:
             pass
 
