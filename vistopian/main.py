@@ -89,6 +89,16 @@ def save_show(ctx, **argv):
 
     ctx.obj.visitor.save_show(content_id, argv.pop("no_tag"))
 
+
+@main.command("list-all")
+@click.pass_context
+def subscriptions(ctx):
+    for i in range(1, 300):
+        try:
+            ctx.obj.visitor.save_show(i, verbose=True, list_only=True)
+        except:
+            pass
+
 @main.command("save-all")
 @click.pass_context
 def subscriptions(ctx):

@@ -46,7 +46,7 @@ class Visitor:
         response = self.get_api_response(f"content/content-show/{id}")
         return response
 
-    def save_show(self, id: int, no_tag: bool = False, no_cover: bool = False, verbose: bool= False, skip_free: bool = False):
+    def save_show(self, id: int, no_tag: bool = False, no_cover: bool = False, verbose: bool = False, skip_free: bool = False, list_only: bool = False):
 
         from pathlib import Path
 
@@ -56,7 +56,7 @@ class Visitor:
         if verbose:
             print(catalog["id"], catalog["title"], catalog["type"])
 
-        if skip_free and catalog["type"] == "free":
+        if list_only or (skip_free and catalog["type"] == "free"):
             return
 
         show_dir = Path(catalog["title"])
