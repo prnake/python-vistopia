@@ -27,7 +27,6 @@ class Visitor:
 
         return response["data"]
 
-
     @lru_cache()
     def get_catalog(self, id: int):
         response = self.get_api_response(f"content/catalog/{id}")
@@ -47,12 +46,18 @@ class Visitor:
         response = self.get_api_response(f"content/content-show/{id}")
         return response
 
-    def save_show(self, id: int, no_tag: bool = False, no_cover: bool = False):
+    def save_show(self, id: int, no_tag: bool = False, no_cover: bool = False, verbose: bool= False, skip_free: bool = False):
 
         from pathlib import Path
 
         catalog = self.get_catalog(id)
         series = self.get_content_show(id)
+
+        if verbose:
+            print(catalog["id"], catalog["title"], catalog["type"])
+
+        if skip_free and catalog["type"] == "free":
+            return
 
         show_dir = Path(catalog["title"])
         show_dir.mkdir(exist_ok=True)
